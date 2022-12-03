@@ -1,20 +1,21 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import Profile from './Profile';
+import Register from "./Register";
+import Login from './Login';
+import Home from './Home';
+import TeacherData from './TeacherData';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <TeacherData/>
+    // <Profile/>
+    // <Login/>
+    // <Home/>
+    // <Register/>
+    // <View style={styles.container}>
+    //   <Text> HEHEHEHEHE </Text>
+    //   <StatusBar style="auto" />
+    // </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
