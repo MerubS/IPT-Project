@@ -1,9 +1,9 @@
 import { View, StyleSheet, Image , Text, ScrollView } from "react-native";
-import { Button , Card, List , IconButton, ToggleButton} from 'react-native-paper';
+import { Button , Card, List , IconButton , ToggleButton} from 'react-native-paper';
 import Stats from "./Components/Stats";
-const TeacherData = ({navigation})=> {
+const StudentData = ({navigation})=> {
     const onButtonToggle = () => {
-       navigation.navigate('Profile');
+        navigation.navigate('Profile')
     }
     const actions = () => {
         return (
@@ -25,7 +25,7 @@ const TeacherData = ({navigation})=> {
     }
  return (
 <View style={style.container}>
-    <View style={{marginTop:30, flexDirection:'row-reverse'}}>
+<View style={{marginTop:30, flexDirection:'row-reverse'}}>
     <ToggleButton
       icon={require('./Images/menu.png')}
       value="bluetooth"
@@ -34,16 +34,16 @@ const TeacherData = ({navigation})=> {
 
     </View>
      <View style={style.mainpic}> 
-    <Stats number={33} description={"Total teachers"}/>
+    <Stats number={133} description={"Total students"}/>
     <Stats number={7} description={"Total subjects"}/>
      </View>
      <View style={style.data}>
        <View> 
-       <Text style={{textAlign: "center" , marginTop: 20 , fontWeight: "bold" , fontSize: 25}}> Teachers </Text>
+       <Text style={{textAlign: "center" , marginTop: 20 , fontWeight: "bold" , fontSize: 25}}> Students </Text>
          </View>
         <ScrollView style={{padding:10}}>
         <List.Section>
-            <List.Item style={style.list} title="Teacher Name" description="Subjects" right={actions}> </List.Item>
+            <List.Item style={style.list} title="Student Name" description="Subjects" right={actions}> </List.Item>
         </List.Section>
         </ScrollView>
      </View>
@@ -86,4 +86,4 @@ const style = StyleSheet.create({
    
 })
 
-export default TeacherData;
+export default StudentData;

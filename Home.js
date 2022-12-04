@@ -1,6 +1,12 @@
 import { View, StyleSheet, Image , Text } from "react-native";
 import { Button} from 'react-native-paper';
-const Home = () => {
+const Home = ({navigation}) => {
+    const loginhandler = () => {
+        navigation.navigate('Login');
+    }
+    const signuphandler = () =>{
+        navigation.navigate('Signup');
+    }
 return (
     <View style={style.container}>
      <View style = {style.mainpic}>
@@ -11,8 +17,8 @@ return (
 />
          </View>
          <View style={style.content}>
-<Button mode="contained" style={style.bstyle}> Teacher </Button>
-<Button mode="contained" style={style.bstyle} > Student </Button>
+<Button mode="contained" style={style.bstyle} onPress={loginhandler}> Teacher </Button>
+<Button mode="contained" style={style.bstyle} onPress={signuphandler} > Student </Button>
          </View>
     </View>
 );

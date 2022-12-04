@@ -1,11 +1,25 @@
-import { View, StyleSheet, Image , Text, SafeAreaView , TouchableOpacity } from "react-native";
-import { Button,    TextInput} from 'react-native-paper';
-const Login = () => {
+import { useEffect, useState } from "react";
+import { View, StyleSheet, Image , Text, SafeAreaView , TouchableOpacity} from "react-native";
+import { Button , TextInput, HelperText } from 'react-native-paper';
+const Login = ({navigation}) => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, seterror] = useState(false);
+    const homehandler = () => {
+        navigation.navigate('Home');
+    }
+
+    const submithandler = () => {
+        // match email and password then   
+        // seterror(true);
+        // navigation.navigate('TeacherHome');
+}
+
 return (
     <View style={style.container}>
          <View style={{flexDirection:'row' , justifyContent:'flex-end', marginTop:30 , padding:10}}>
          <TouchableOpacity
-        // onPress={buttonClickedHandler}
+        onPress={homehandler}
         style={style.roundButton1}>
         <Image 
   source={require('./Images/circleright.png')}  
@@ -27,27 +41,34 @@ return (
                  </View>
                 <View style={{justifyContent:'center', alignItems:'center', flex: 1}}>
                     <SafeAreaView>
+                        {/* <TextInput  label="Email" style={style.text}  value= {credentials.email}   onChange={inputHandler.bind(this,'email')}/> */}
                     <TextInput
-      label="Username"
+      label="Email"
       mode = 'outlined'
       selectionColor="black"
-      value=""
       placeholder=""
       outlineColor="black"
       activeOutlineColor="black"
+      value={email}
+      onChangeText={email => setEmail(email)}
       style={style.text}
-    />
-    <TextInput
+    /> 
+     <TextInput
+     secureTextEntry={true}
       label="Password"
       mode = 'outlined'
       selectionColor="black"
-      value=""
       placeholder=""
       outlineColor="black"
       activeOutlineColor="black"
+      value={password}
+      onChangeText={password => setPassword(password)}
       style={style.text}
     />
-    <Button mode="contained" textColor="black" style={style.bstyle}> Submit </Button>
+    
+    {error && <HelperText visible={error} type="error"> Email and Password are incorrect </HelperText>}
+
+    <Button mode="contained" textColor="black" style={style.bstyle} onPress={submithandler}> Submit </Button>
                     </SafeAreaView>
                 </View>
          </View>
@@ -75,11 +96,11 @@ const style = StyleSheet.create({
     },
     text: {
         backgroundColor:'#ffd656',
-        fontSize: 14,
+        margin: 15,
         width: 300,
-        padding: 0,
-        height: 40,
-        margin: 10
+        height: 60,
+        margin: 10,
+        fontSize:12
        },
        bstyle: {
         backgroundColor: '#fffcf1',

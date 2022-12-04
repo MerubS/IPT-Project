@@ -1,15 +1,67 @@
 import { StyleSheet , View , Text , Image , ScrollView , SafeAreaView , TouchableOpacity} from "react-native";
-import { TextInput , RadioButton , Button} from 'react-native-paper';
+import { TextInput , RadioButton , HelperText} from 'react-native-paper';
 import { useState } from "react";
 import CheckBox from "./Components/CheckBox";
 
-const Register = () => {
+const Register = ({navigation}) => {
     const [checked, setChecked] = useState(false);
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [contact, setContact] = useState('');
+    const [gender, setGender] = useState('');
+    const [mode, setMode] = useState('');
+    const [hr, setHr] = useState('');
+    const [maths, setMaths] = useState(false);
+    const [addmaths, setAddmaths] = useState(false);
+    const [biology, setBiology] = useState(false);
+    const [science, setScience] = useState(false);
+    const [computer, setComputer] = useState(false);
+    const [history, setHistory] = useState(false);
+    const [geography, setGeography] = useState(false);
+    const [budget , setBudget] = useState('');
+    const [emailerror , setEmailerror] = useState('');
+    const [contacterror , setContacterror] = useState('');
+    const [budgeterror , setBudgeterror] = useState('');
+    const [error, setError] = useState('');
+
+    
+    const homeHandler = () => {
+       navigation.navigate('Home');
+    }
+    const submitHandler = () => {
+        if (!/\S+@\S+\.\S+/.test(email)) {
+            setEmailerror('Invalid Email');
+        }
+        else {
+            setEmailerror('');
+        }
+        if (contact.length !== 11) {
+            setContacterror('Invalid number');
+        }
+        else {
+            setContacterror('');
+        }
+        if (budget <= 0) {
+            setBudgeterror('Invalid number');
+        }
+        else {
+            setBudgeterror('');
+        }
+        if (name == '' && email == '' && contact == '' && gender == '' && mode == ''
+         && hr == '' && budget == '' ) {                                                  // No checkbox validation
+            setError("Please complete the form");
+        }
+        else {
+            navigation.navigate('StudentHome');
+        }
+
+        
+    }
     return (
         <View style = {style.container}>
             <View style={{flexDirection:'row' , justifyContent:'space-between', marginTop:30 , padding:20}}>
             <TouchableOpacity
-        // onPress={buttonClickedHandler}
+        onPress={homeHandler}
         style={style.roundButton1}>
         <Image 
   source={require('./Images/circleleft.png')}  
@@ -17,7 +69,7 @@ const Register = () => {
 />
       </TouchableOpacity>
       <TouchableOpacity
-        // onPress={buttonClickedHandler}
+        onPress={submitHandler}
         style={style.roundButton1}>
         <Image 
   source={require('./Images/circleright.png')}  
@@ -45,44 +97,50 @@ const Register = () => {
       label="Name"
       mode = 'outlined'
       selectionColor="black"
-      value=""
+      value={name}
+      onChangeText = {name => setName(name)}
       placeholder=""
       outlineColor="black"
       activeOutlineColor="black"
       style={style.text}
     />
+
     <TextInput
       label="Email"
       mode = 'outlined'
       selectionColor="black"
-      value=""
+      value={email}
+      onChangeText = {email => setEmail(email)}
       placeholder=""
       outlineColor="black"
       activeOutlineColor="black"
       style={style.text}
     />
+    {emailerror && <HelperText type="error"> {emailerror} </HelperText>}
     <TextInput
       label="Contact"
       mode = 'outlined'
       selectionColor="black"
-      value=""
+      value={contact}
+      onChangeText = {contact => setContact(contact)}
       placeholder=""
       outlineColor="black"
       activeOutlineColor="black"
       style={style.text}
     />
-    <Text> Gender: </Text>
+     {contacterror && <HelperText type="error"> {contacterror} </HelperText>}
+    <Text style={{marginTop:10}}> Gender: </Text>
     <RadioButton.Group>
         <View style={{flexDirection:"row"}}>
-            <RadioButton value="female"/>
+            <RadioButton color="black" value="female" status={gender == 'female' ? 'checked' : 'unchecked'} onPress={()=>setGender('female')}/>
             <Text style={{padding:7}}> Female </Text>
         </View>
         <View style={{flexDirection:"row"}}>
-            <RadioButton value="male"/>
+            <RadioButton color="black" value="male" status={gender == 'male' ? 'checked' : 'unchecked'} onPress={()=>setGender('male')}/>
             <Text style={{padding:7}}> Male </Text>
         </View>
         <View style={{flexDirection:"row"}}>
-            <RadioButton value="other"/>
+            <RadioButton color="black" value="other" status={gender == 'other' ? 'checked' : 'unchecked'} onPress={()=>setGender('other')}/>
             <Text style={{padding:7}}> Other </Text>
         </View>
     </RadioButton.Group>
@@ -93,15 +151,15 @@ const Register = () => {
                 <Text style={{fontWeight: "bold"}}> Mode: </Text>
     <RadioButton.Group>
         <View style={{flexDirection:"row"}}>
-            <RadioButton value="home tuition"/>
+            <RadioButton value="home tuition" color="black" status={mode == 'home tuition' ? 'checked' : 'unchecked'} onPress={()=>setMode('home tuition')}/>
             <Text style={{padding:7}}> Home Tuition </Text>
         </View>
         <View style={{flexDirection:"row"}}>
-            <RadioButton value="coaching center"/>
+            <RadioButton value="coaching center" color="black" status={mode == 'coaching center' ? 'checked' : 'unchecked'} onPress={()=>setMode('coaching center')}/>
             <Text style={{padding:7}}> Coaching center </Text>
         </View>
-        <View style={{flexDirection:"row"}}>
-            <RadioButton value="online"/>
+        <View style={{flexDirection:"row" }}>
+            <RadioButton value="online" color="black" status={mode == 'online' ? 'checked' : 'unchecked'} onPress={()=>setMode('online')}/>
             <Text style={{padding:7}}> Online </Text>
         </View>
     </RadioButton.Group>
@@ -110,41 +168,32 @@ const Register = () => {
     <Text style={{fontWeight: "bold"}}> Hours per day: </Text>
     <RadioButton.Group>
         <View style={{flexDirection:"row"}}>
-            <RadioButton value="1"/>
+            <RadioButton value="1" color="black" status={hr == '1' ? 'checked' : 'unchecked'} onPress={()=>setHr('1')}/>
             <Text style={{padding:7}}> 1 </Text>
         </View>
-        <View style={{flexDirection:"row"}}>
-            <RadioButton value="2"/>
+        <View style={{flexDirection:"row" }}>
+            <RadioButton value="2" color="black" status={hr == '2' ? 'checked' : 'unchecked'} onPress={()=>setHr('2')}/>
             <Text style={{padding:7}}> 2 </Text>
         </View>
         <View style={{flexDirection:"row"}}>
-            <RadioButton value="3"/>
+            <RadioButton value="3" color="black" status={hr == '3' ? 'checked' : 'unchecked'} onPress={()=>setHr('3')}/>
             <Text style={{padding:7}}> 3 </Text>
         </View>
         <View style={{flexDirection:"row"}}>
-            <RadioButton value="4"/>
+            <RadioButton value="4" color="black" status={hr == '4' ? 'checked' : 'unchecked'} onPress={()=>setHr('4')}/>
             <Text style={{padding:7}}> 4 </Text>
         </View>
     </RadioButton.Group>
                 </View>
                 <Text style={{fontWeight: "bold" , fontSize: 15}}> Subjects </Text>
                 <View style={{padding:20}}>
-                <CheckBox label="Maths" status="unchecked" onPress={null} />
-                <CheckBox label="Add Maths" status="unchecked" onPress={null} />
-                <CheckBox label="Business Studies" status="unchecked" onPress={null} />
-                <CheckBox label="Biology" status="unchecked" onPress={null} />
-                <CheckBox label="Science" status="unchecked" onPress={null} />
-                <CheckBox label="Physics" status="unchecked" onPress={null} />
-                <CheckBox label="Urdu" status="unchecked" onPress={null} />
-                <CheckBox label="Computer Science" status="unchecked" onPress={null} />
-                <CheckBox label="History" status="unchecked" onPress={null} />
-                <CheckBox label="Chemistry" status="unchecked" onPress={null} />
-                <CheckBox label="English Literature" status="unchecked" onPress={null} />
-                <CheckBox label="ECAT" status="unchecked" onPress={null} />
-                <CheckBox label="Geography" status="unchecked" onPress={null} />
-                <CheckBox label="Accounts" status="unchecked" onPress={null} />
-                <CheckBox label="English Language" status="unchecked" onPress={null} />
-                <CheckBox label="MCAT" status="unchecked" onPress={null} />
+                <CheckBox label="Maths" status={maths ? "checked" : "unchecked"} onPress={()=>{setMaths(!maths)}} />
+                <CheckBox label="Add Maths" status={addmaths ? "checked" : "unchecked"} onPress={()=>{setAddmaths(!addmaths)}} />
+                <CheckBox label="Biology" status={biology ? "checked" : "unchecked"} onPress={()=>{setBiology(!biology)}} />
+                <CheckBox label="Science" status={science ? "checked" : "unchecked"} onPress={()=>{setScience(!science)}} />
+                <CheckBox label="Computer Science" status={computer ? "checked" : "unchecked"} onPress={()=>{setComputer(!computer)}} />
+                <CheckBox label="History" status={history ? "checked" : "unchecked"} onPress={()=>{setHistory(!history)}} />
+                <CheckBox label="Geography" status={geography ? "checked" : "unchecked"} onPress={()=>{setGeography(!geography)}} />
   
                 </View>
 
@@ -154,12 +203,15 @@ const Register = () => {
       label="Budget"
       mode = 'outlined'
       selectionColor="black"
-      value=""
+      value={budget}
+      onChangeText = {budget => setBudget(budget)}
       placeholder=""
       outlineColor="black"
       activeOutlineColor="black"
       style={style.ltext}
     />
+      {budgeterror && <HelperText type="error"> {budgeterror} </HelperText>}
+      {error && <HelperText type="error"> {error} </HelperText>}
     </View>
    
                 </SafeAreaView>
@@ -204,7 +256,8 @@ const style = StyleSheet.create({
     fontSize: 14,
     width: 300,
     padding: 0,
-    height: 40
+    height: 40,
+    marginBottom:10
    },
    ltext: {
     backgroundColor:'#ffd656',

@@ -4,7 +4,7 @@ const Stats = (props) => {
  return (
     <Card style={style.card}>
     <Card.Content style={style.content}>
-      <Title> {props.number} </Title>
+      <Title style={{fontSize:30 , fontWeight:"bold", marginBottom:15}}> {props.number} </Title>
       < Text> {props.description} </Text>
     </Card.Content>
   </Card>
@@ -13,8 +13,11 @@ const Stats = (props) => {
 
 const style = StyleSheet.create({
     card:{
-        height:200,
-        width: 150
+        height:170,
+        width: 150,
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin:10
     },
     content: {
         justifyContent: 'center',

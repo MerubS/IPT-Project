@@ -3,12 +3,18 @@ import {  Button } from 'react-native-paper';
 import ChangePassword from './ChangePassword';
 import Navigation from './TNavigation';
 import ANavigation from './ANavigation';
-const Profile = () => {
+const Profile = ({navigation}) => {
+    const backHandler = () => {
+         navigation.goBack();
+    }
+    const homeHandler = () => {
+        navigation.navigate('Home');
+    }
  return (
     <View style={style.container}>
      <View style={{flexDirection:'row', justifyContent:'flex-start', marginTop:30 , padding:20}}>
             <TouchableOpacity
-        // onPress={buttonClickedHandler}
+        onPress={backHandler}
         style={style.roundButton1}>
         <Image 
   source={require('./Images/circleleft.png')}  
@@ -22,7 +28,7 @@ const Profile = () => {
         <Image source={require('./Images/maleteacher.png')}  style={{width: 100, height: 120 , margin: "auto" , backgroundColor:'orange', borderRadius:5}} />
         <Text style={{textAlign: "center" , marginTop: 10 , fontWeight: "bold" , fontSize: 20 }}> John Doe </Text>
         <Text style={{margin:2}}> teachersomething@gmail.com </Text>
-        <Button mode='contained' textColor="black" style={style.bstyle}> Log out  </Button>
+        <Button mode='contained' textColor="black" style={style.bstyle} onPress={homeHandler}> Log out  </Button>
           </View>
           <SafeAreaView>
     {/* <TNavigation/> */}
