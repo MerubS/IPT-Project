@@ -1,36 +1,87 @@
+import { useEffect, useState } from 'react';
 import { View , StyleSheet} from 'react-native';
-import { TextInput ,Button} from 'react-native-paper';
-const ChangePassword = () => {
+import { TextInput ,Button, HelperText, Provider , Portal , Dialog} from 'react-native-paper';
+const ChangePassword = (props) => {
+  const [password, setpassword] = useState('');
+  const [cpassword , setcpassword] = useState('');
+  const [error,seterror] = useState('');
+  const submitHandler = () => {
+    if (password !== cpassword) {
+        seterror('Passwords do not match');
+    }
+    else {
+      seterror('');
+    }
+  }
+  useEffect(()=>{console.log(error,password,cpassword)},[error,password,cpassword])
     return (
-        <View style={{padding:20, justifyContent:'center', alignItems:'center'}}>
-      <TextInput
+      <Provider>
+      <View>
+        <Portal>
+          <Dialog style={{backgroundColor:'#fffcf1'}} visible={props.visible}>
+            <Dialog.Title>Change Password</Dialog.Title>
+            <Dialog.Content>
+            <TextInput
       label="Password"
       mode = 'outlined'
       selectionColor="black"
-      value=""
+      secureTextEntry={true}
+      value={password}
+      onChangeText= {password => setpassword(password)}
       placeholder=""
       outlineColor="black"
       activeOutlineColor="black"
       style={style.text}
     />
-     <TextInput
+        <TextInput
       label="Confirm Password"
       mode = 'outlined'
       selectionColor="black"
-      value=""
+      secureTextEntry={true}
+      value={cpassword}
+      onChangeText = {cpassword => setcpassword(cpassword)}
       placeholder=""
       outlineColor="black"
       activeOutlineColor="black"
       style={style.text}
     />
-    <Button mode="contained" textColor="black" style={style.bstyle}> Submit </Button>
-        </View>
+    {error && <HelperText type='error'>  {error} </HelperText>}
+            </Dialog.Content>
+           <View style={{flexDirection:'row', justifyContent:'center', margin:10}}>
+            <Button onPress={()=>{props.setvisible()}} mode="contained" textColor="black" style={style.bstyle}> Back </Button>
+    <Button onPress={()=>{submitHandler()}} mode="contained" textColor="black" style={style.bstyle}> Submit </Button>
+          </View>
+          </Dialog>
+        </Portal>
+      </View>
+    </Provider>
+
+    //     <View style={{padding:20, justifyContent:'center', alignItems:'center'}}>
+   
+    //  <TextInput
+    //   label="Confirm Password"
+    //   mode = 'outlined'
+    //   selectionColor="black"
+    //   secureTextEntry={true}
+    //   value={cpassword}
+    //   onChangeText = {cpassword => setcpassword(cpassword)}
+    //   placeholder=""
+    //   outlineColor="black"
+    //   activeOutlineColor="black"
+    //   style={style.text}
+    // />
+    // {error && <HelperText type='error'>  {error} </HelperText>}
+    // <View style={{flexDirection:'row'}}>
+    // <Button onPress={()=>{navHandler}} mode="contained" textColor="black" style={style.bstyle}> Back </Button>
+    // <Button onPress={()=>{submitHandler}} mode="contained" textColor="black" style={style.bstyle}> Submit </Button>
+    // </View>
+    //     </View>
      );
 }
 
 const style = StyleSheet.create({
    text: {
-    backgroundColor:'#ffd656',
+    backgroundColor:'#fffcf1',
     fontSize: 14,
     width: 300,
     padding: 0,
@@ -38,9 +89,10 @@ const style = StyleSheet.create({
     margin:10
    },
    bstyle: {
-    backgroundColor: '#fffcf1',
+    backgroundColor: '#ffd656',
     textColor: 'black',
-    margin: 10
+    margin: 10,
+    margin:10
 }
 })
 export default ChangePassword

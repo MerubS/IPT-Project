@@ -12,7 +12,7 @@ const Login = ({navigation}) => {
     const submithandler = () => {
         // match email and password then   
         // seterror(true);
-        // navigation.navigate('TeacherHome');
+        navigation.navigate('TeacherHome');
 }
 
 return (

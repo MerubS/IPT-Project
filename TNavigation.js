@@ -3,12 +3,7 @@ import { List } from 'react-native-paper';
 const TNavigation = () => {
  return (
     <View style={{padding:20}}>
-    <List.Item
-    title="Schedule Demos"
-    left={props => <List.Icon {...props} icon={require('./Images/schedule.png')}
-    onPress={null}
-     />}
-  />
+      
   <List.Item
     title="Student Details"
     left={props => <List.Icon {...props} icon={require('./Images/details.png')}

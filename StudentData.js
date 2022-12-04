@@ -2,6 +2,9 @@ import { View, StyleSheet, Image , Text, ScrollView } from "react-native";
 import { Button , Card, List , IconButton , ToggleButton} from 'react-native-paper';
 import Stats from "./Components/Stats";
 const StudentData = ({navigation})=> {
+    // Use map function for list generation
+    const deletefunctionality = () => {}   // Implement delete of data
+    const editfunctionality = () => {}    // Implement edit of data
     const onButtonToggle = () => {
         navigation.navigate('Profile')
     }
@@ -12,13 +15,13 @@ const StudentData = ({navigation})=> {
     icon={require('./Images/trash.png')}
     size={20}
     mode="default"
-    onPress={null}
+    onPress={()=>{deletefunctionality}}
   />
   <IconButton
   icon={require('./Images/edit.png')}
   size={20}
   mode="default"
-  onPress={null}
+  onPress={()=>{editfunctionality}}
 />
 </View>
         );
@@ -41,7 +44,7 @@ const StudentData = ({navigation})=> {
        <View> 
        <Text style={{textAlign: "center" , marginTop: 20 , fontWeight: "bold" , fontSize: 25}}> Students </Text>
          </View>
-        <ScrollView style={{padding:10}}>
+        <ScrollView style={{padding:10}}>               
         <List.Section>
             <List.Item style={style.list} title="Student Name" description="Subjects" right={actions}> </List.Item>
         </List.Section>

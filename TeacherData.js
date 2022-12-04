@@ -5,6 +5,8 @@ const TeacherData = ({navigation})=> {
     const onButtonToggle = () => {
        navigation.navigate('Profile');
     }
+    const deletefunctionality = () => {}   // Implement delete of data
+    const editfunctionality = () => {}    // Implement edit of data
     const actions = () => {
         return (
             <View style={{flexDirection:'row'}}>
@@ -12,13 +14,13 @@ const TeacherData = ({navigation})=> {
     icon={require('./Images/trash.png')}
     size={20}
     mode="default"
-    onPress={null}
+    onPress={()=>{deletefunctionality}}
   />
   <IconButton
   icon={require('./Images/edit.png')}
   size={20}
   mode="default"
-  onPress={null}
+  onPress={()=>{editfunctionality}}
 />
 </View>
         );

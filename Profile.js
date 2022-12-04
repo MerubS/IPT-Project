@@ -1,14 +1,29 @@
 import { View, StyleSheet, TouchableOpacity, Text, Image, SafeAreaView } from 'react-native';
-import {  Button } from 'react-native-paper';
+import {  Button , List } from 'react-native-paper';
 import ChangePassword from './ChangePassword';
 import Navigation from './TNavigation';
 import ANavigation from './ANavigation';
+import { useState } from 'react';
+import TNavigation from './TNavigation';
+
 const Profile = ({navigation}) => {
+    const [admin , setadmin] = useState(true);
+    const [change , setchange] = useState(false);
     const backHandler = () => {
          navigation.goBack();
     }
     const homeHandler = () => {
         navigation.navigate('Home');
+    }
+
+    const teacherHandler = () => {
+        navigation.navigate('TeacherHome');
+    }
+    const studentHandler = () => {
+        navigation.navigate('StudentHome');
+    }
+    const studentdetailsHandler = () => {
+        navigation.navigate('StudentDetails');
     }
  return (
     <View style={style.container}>
@@ -31,8 +46,40 @@ const Profile = ({navigation}) => {
         <Button mode='contained' textColor="black" style={style.bstyle} onPress={homeHandler}> Log out  </Button>
           </View>
           <SafeAreaView>
+    {admin ?  <View style={{padding:20}}>
+        <List.Item
+        title="Student data"
+        left={props => <List.Icon {...props} icon={require('./Images/deletestudent.png')}/>}
+        onPress={()=>{studentHandler()}}
+      
+      />
+      <List.Item
+        title="Teacher Data"
+        left={props => <List.Icon {...props} icon={require('./Images/details.png')}/>}
+        onPress={()=>{teacherHandler()}}
+      />
+      <List.Item
+        title="Change Password"
+        left={props => <List.Icon {...props} icon={require('./Images/settings.png')}/>}
+      onPress={()=>{setchange(true)}}
+      />
+        </View> :  
+        
+    <View style={{padding:20}}>
+      
+      <List.Item
+        title="Student Details"
+        left={props => <List.Icon {...props} icon={require('./Images/details.png')} />}
+        onPress={()=>{studentdetailsHandler()}}
+      />
+      <List.Item
+        title="Change Password"
+        left={props => <List.Icon {...props} icon={require('./Images/settings.png')}/>}
+        onPress={()=>{setchange(true)}}
+      />
+        </View>}
     {/* <TNavigation/> */}
-    {/* <ChangePassword/> */}
+    <ChangePassword visible={change} setvisible={()=>setchange(false)}/>
     {/* <ANavigation/> */}
     </SafeAreaView>
     </View>
