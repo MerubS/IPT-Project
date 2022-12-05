@@ -52,7 +52,7 @@ const Register = ({navigation}) => {
             setError("Please complete the form");
         }
         else {
-            navigation.navigate('StudentHome');
+            navigation.navigate('Submitted');
         }
 
         
